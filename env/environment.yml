@@ -1,0 +1,29 @@
+# Conda environment for learning LeRobot and building chess-arm.
+# Target: WSL2 (Ubuntu) or native Linux, x86_64, NVIDIA GPU optional.
+#
+#   conda env create -f env/environment.yml
+#   conda activate chess-arm
+#
+# Versions checked against PyPI on 2026-11-12:
+#   lerobot 0.6.1  (Aug 2026, last 0.6 patch; 0.7.0 is one week old, upgrade later on purpose)
+#   torch 2.11.0 / torchvision 0.26.0  (newest allowed by lerobot 0.6.1: torch<2.12)
+#   On Linux the PyPI torch wheel already bundles CUDA 13 -> needs NVIDIA driver >= 580
+#   on the Windows host, and a GPU that is GTX 16xx / RTX 20xx or newer.
+name: chess-arm
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12          # lerobot requires >=3.12
+  - pip
+  - ffmpeg=7.1           # video encode/decode for LeRobot datasets (used by torchcodec / pyav)
+  - pip:
+      - torch==2.11.0
+      - torchvision==0.26.0
+      # feetech     -> SO-101 servo driver
+      # kinematics  -> forward/inverse kinematics (placo)
+      # core-scripts-> record / replay / teleoperate / dataset viewer
+      # training    -> lerobot-train, wandb logging
+      # pusht,aloha -> simulation environments for learning without an arm
+      - lerobot[feetech,kinematics,core-scripts,training,pusht,aloha]==0.6.1
+      - chess==1.11.2        # python-chess: board logic, Stockfish bridge
+      - ipykernel==7.4.0     # run the env from Jupyter / VS Code notebooks
