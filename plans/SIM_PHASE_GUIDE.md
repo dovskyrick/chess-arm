@@ -78,6 +78,7 @@ Add tests from day one.
 ## 13. Prepare for arrival
 Before the box comes, have ready:
 - the commands for finding the port, setting up the motors, calibrating and teleoperating, written in your notes;
+- `usbipd-win` installed, for USB in WSL;
 - a printed 20 cm board and two cameras chosen;
 - a clear, stable table.
 
