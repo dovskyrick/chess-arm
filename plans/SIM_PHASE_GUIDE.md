@@ -2,6 +2,8 @@
 
 About 40 words per topic. All commands are for LeRobot 0.6.1 inside WSL with the `chess-arm` conda env active. Do them in order, and note anything surprising in `docs/lerobot-notes.md`.
 
+> **LeRobot 0.6.1 bug:** parallel simulation workers fail with `gym id ... not found`. Always pass `--eval.use_async_envs=false` (already in the commands below).
+
 ## 1. Goal of these weeks
 Become fluent with LeRobot's moving parts before hardware arrives: datasets, policies, training, evaluation, kinematics. Results in simulation don't matter. Understanding what each command does, which files it writes, and where the code lives matters a lot.
 
@@ -35,7 +37,7 @@ ds = LeRobotDataset("lerobot/pusht"); print(ds); print(ds[0].keys(), ds.meta.sta
 Evaluate the pretrained Diffusion Policy on PushT. It writes success rate and rollout videos under `outputs/eval/`. Watch the videos closely: smooth, confident pushing is what a well-trained policy looks like. Note how long each episode takes to compute on your GPU.
 ```bash
 lerobot-eval --policy.path=lerobot/diffusion_pusht --env.type=pusht \
-  --eval.n_episodes=10 --eval.batch_size=10 --policy.device=cuda
+  --eval.n_episodes=10 --eval.batch_size=10 --eval.use_async_envs=false --policy.device=cuda
 ```
 
 ## 7. Run a pretrained ACT policy
@@ -50,7 +52,7 @@ Train ACT on the same human demos for a short run, saved locally, not pushed. Wa
 ```bash
 lerobot-train --dataset.repo_id=lerobot/aloha_sim_transfer_cube_human --policy.type=act \
   --env.type=aloha --env.task=AlohaTransferCube-v0 --steps=20000 --batch_size=8 \
-  --policy.push_to_hub=false --output_dir=outputs/train/act_cube
+  --policy.push_to_hub=false --eval.use_async_envs=false --output_dir=outputs/train/act_cube
 ```
 
 ## 9. Run small experiments
