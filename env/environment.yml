@@ -24,6 +24,7 @@ dependencies:
       # core-scripts-> record / replay / teleoperate / dataset viewer
       # training    -> lerobot-train, wandb logging
       # pusht,aloha -> simulation environments for learning without an arm
-      - lerobot[feetech,kinematics,core-scripts,training,pusht,aloha]==0.6.1
+      # diffusion   -> Diffusion Policy (diffusers library)
+      - lerobot[feetech,kinematics,core-scripts,training,pusht,aloha,diffusion]==0.6.1
       - chess==1.11.2        # python-chess: board logic, Stockfish bridge
       - ipykernel==7.4.0     # run the env from Jupyter / VS Code notebooks
