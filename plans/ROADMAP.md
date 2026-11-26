@@ -52,6 +52,7 @@
 
 ### Phase 5 — Stretch: learning (bridge to the long-term vision)
 - Record teleop demos of pick-and-place in LeRobot, train ACT / SmolVLA, compare against the scripted mover.
+- **Planned design: scripted travel + learned grasp.** Inverse kinematics and interpolation carry the gripper in a high plane to hover over the square (no model). ACT, using the wrist camera, does only the final descent, grasp and lift. "The piece under the gripper" needs no goal input. Placing works the same way. Stockfish → game loop → `move_piece(from, to)` → this mover.
 - Experiment: annotate videos of *human* hands moving pieces, try to use them as training signal.
 - **Done when:** a learned policy moves pieces at least as reliably as the script on a subset of squares.
 
