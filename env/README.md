@@ -27,3 +27,9 @@
 
 ## Hardware later (arm + webcams)
 WSL does not see USB devices by default. The arm's USB-serial board can be forwarded with `usbipd-win`, which usually works. Webcams through WSL are unreliable. When you get to the real arm, either forward devices with `usbipd`, or run the hardware scripts on a native Linux machine or a Linux partition. Simulation and training stay fine in WSL.
+
+## Rerun viewer on Windows (if it fails inside WSL)
+The Rerun window can crash in WSL (`Adapter does not support drawing to texture format R32Float`). Workaround that works:
+1. Windows, Anaconda/Miniforge Prompt: `conda create -n rerun-viewer python=3.12 -y`, `conda activate rerun-viewer`, `pip install rerun-sdk==0.33.1` (must match the version in WSL).
+2. WSL: `lerobot-dataset-viz --repo-id lerobot/pusht --episode-index 0 --save 1 --output-dir ~/viz`
+3. Windows: `rerun \\wsl$\Ubuntu\home\<user>\viz\lerobot_pusht_episode_0.rrd`
